@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NETCoreASPAPI.Models;
 using NETCoreASPAPI.Services;
@@ -28,11 +29,17 @@ namespace NETCoreASPAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get(int id)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<Person> Get(int id)
         {
-            return null;
+            var person = personService.GetPerson(id);
+
+            if (person == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(person);
         }
-
-
     }
 }

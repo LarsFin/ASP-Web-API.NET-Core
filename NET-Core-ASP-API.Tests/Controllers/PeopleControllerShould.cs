@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NETCoreASPAPI.Controllers;
 using NETCoreASPAPI.Models;
@@ -35,10 +36,24 @@ namespace NETCoreASPAPI.Tests.Controllers
         }
 
         [Test]
-        public void ReturnSpecificPerson()
+        public void ReturnSpecificPersonAsync()
         {
             personServiceMock.Setup(q => q.GetPerson(1)).Returns(_bobPerson);
 
+            var result = controller.Get(1);
+
+            result.Result.ShouldBeOfType<OkObjectResult>();
+            var okResult = result.Result as OkObjectResult;
+            okResult.Value.ShouldBeOfType<Person>();
+            okResult.Value.ShouldBe(_bobPerson);
+        }
+
+        [Test]
+        public void ReturnSpecifiedPersionAsync_NotFound()
+        {
+            var result = controller.Get(99);
+
+            result.Result.ShouldBeOfType<NotFoundResult>();
         }
     }
 }
