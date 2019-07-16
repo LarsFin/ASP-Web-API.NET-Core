@@ -33,5 +33,12 @@ namespace NETCoreASPAPI.Tests.Controllers
 
             controller.Get().ShouldBe(_people);
         }
+
+        [Test]
+        public void ReturnSpecificPerson()
+        {
+            personServiceMock.Setup(q => q.GetPerson(1)).Returns(_bobPerson);
+
+        }
     }
 }
