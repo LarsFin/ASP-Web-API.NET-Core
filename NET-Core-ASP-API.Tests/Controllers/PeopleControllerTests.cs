@@ -170,5 +170,34 @@ namespace NETCoreASPAPI.Tests.Controllers
                 result.Result.ShouldBeOfType<ConflictResult>();
             }
         }
+      
+        [TestFixture]
+        public class DeleteByIdShould : PeopleControllerTests
+        {
+            [Test]
+            public void ReturnsOk()
+            {
+                var result = controller.Delete(1);
+
+                result.ShouldBeOfType<OkResult>();
+            }
+
+            [Test]
+            public void CallsDeletePerson()
+            {
+                var result = controller.Delete(1);
+
+                personServiceMock.Verify(q => q.DeletePerson(1), Times.Once());
+            }
+
+            [Test]
+            public void ReturnsNotFound()
+            {
+                personServiceMock.Setup(q => q.DeletePerson(99)).Throws<KeyNotFoundException>();
+                var result = controller.Delete(99);
+
+                result.ShouldBeOfType<NotFoundResult>();
+            }
+        }
     }
 }

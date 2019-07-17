@@ -75,5 +75,21 @@ namespace NETCoreASPAPI.Controllers
                 return Conflict();
             }
         }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                personService.DeletePerson(id);
+                return Ok();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+        }
     }
 }
