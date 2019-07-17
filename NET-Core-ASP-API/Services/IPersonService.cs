@@ -12,7 +12,7 @@ namespace NETCoreASPAPI.Services
 
         int CreatePerson(Person person);
 
-        Person UpdatePerson(Person person);
+        Person UpdatePerson(int id, Person person);
 
         void DeletePerson(int id);
     }

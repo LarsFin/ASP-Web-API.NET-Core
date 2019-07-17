@@ -26,7 +26,7 @@ namespace NETCoreASPAPI.Services
             throw new NotImplementedException();
         }
 
-        public Person UpdatePerson(Person person)
+        public Person UpdatePerson(int id, Person person)
         {
             throw new NotImplementedException();
         }

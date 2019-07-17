@@ -103,13 +103,13 @@ namespace NETCoreASPAPI.Tests.Controllers
             {
                 var result = controller.Update(1, _updateData);
 
-                personServiceMock.Verify(q => q.UpdatePerson(_bobPerson), Times.Once());
+                personServiceMock.Verify(q => q.UpdatePerson(1, _updateData), Times.Once());
             }
 
             [Test]
             public void ReturnUpdatedPerson()
             {
-                personServiceMock.Setup(q => q.UpdatePerson(_updateData)).Returns(_updatedPerson);
+                personServiceMock.Setup(q => q.UpdatePerson(1, _updateData)).Returns(_updatedPerson);
 
                 var result = controller.Update(1, _updateData);
 
@@ -122,6 +122,7 @@ namespace NETCoreASPAPI.Tests.Controllers
             [Test]
             public void ReturnsNotFound()
             {
+                personServiceMock.Setup(q => q.UpdatePerson(99, _updateData)).Throws<KeyNotFoundException>();
                 var result = controller.Update(99, _updateData);
 
                 result.Result.ShouldBeOfType<NotFoundResult>();

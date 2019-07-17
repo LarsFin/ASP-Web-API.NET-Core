@@ -49,7 +49,15 @@ namespace NETCoreASPAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Person> Update(int id, Person person)
         {
-            return null;
+            try
+            {
+                var updatedPerson = personService.UpdatePerson(id, person);
+                return Ok(updatedPerson);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
         }
     }
 }
