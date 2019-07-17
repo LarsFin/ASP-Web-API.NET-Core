@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NETCoreASPAPI.Controllers;
+using NETCoreASPAPI.Lib;
 using NETCoreASPAPI.Models;
 using NETCoreASPAPI.Services;
 using NUnit.Framework;
@@ -13,12 +14,12 @@ namespace NETCoreASPAPI.Tests.Controllers
     public class PeopleControllerTests
     {
         private PeopleController controller;
-
+        
         private Mock<IPersonService> personServiceMock;
 
-        private static Person _bobPerson = new Person { ID = 1, FirstName = "Bob", Surname = "Roads", Age = 23 };
+        private static Person _person = new Person { ID = 1, FirstName = "Bob", Surname = "Roads", Age = 23 };
 
-        private static IEnumerable<Person> _people = new List<Person> { _bobPerson };
+        private static IEnumerable<Person> _people = new List<Person> { _person };
 
         [SetUp]
         public virtual void SetUp()
@@ -46,7 +47,7 @@ namespace NETCoreASPAPI.Tests.Controllers
             public override void SetUp()
             {
                 base.SetUp();
-                personServiceMock.Setup(q => q.GetPerson(1)).Returns(_bobPerson);
+                personServiceMock.Setup(q => q.GetPerson(1)).Returns(_person);
             }
 
             [Test]
@@ -64,7 +65,7 @@ namespace NETCoreASPAPI.Tests.Controllers
                 var okResult = result.Result as OkObjectResult;
 
                 okResult.Value.ShouldBeOfType<Person>();
-                okResult.Value.ShouldBe(_bobPerson);
+                okResult.Value.ShouldBe(_person);
             }
 
             [Test]
@@ -84,7 +85,7 @@ namespace NETCoreASPAPI.Tests.Controllers
             private Person _updatedPerson = new Person { ID = 1, FirstName = "Bob", Surname = "Blyth", Age = 23 };
 
             [Test]
-            public void ReturnsOk()
+            public void ReturnOk()
             {
                 var result = controller.Update(1, _updateData);
 
@@ -122,6 +123,54 @@ namespace NETCoreASPAPI.Tests.Controllers
             }
         }
 
+        [TestFixture]
+        public class PostShould : PeopleControllerTests
+        {
+            private static string _firstName = "Eve";
+            private static string _surname = "Harper";
+            private static int _age = 22;
+            private Person _personCreationData = new Person { FirstName = _firstName, Surname = _surname, Age = _age };
+            private Person _createdPerson = new Person { ID = 1, FirstName = _firstName, Surname = _surname, Age = _age };
+
+            [Test]
+            public void ReturnOk()
+            {
+                var result = controller.Create(_personCreationData);
+
+                result.Result.ShouldBeOfType<OkObjectResult>();
+            }
+
+            [Test]
+            public void CallCreatePerson()
+            {
+                var result = controller.Create(_personCreationData);
+
+                personServiceMock.Verify(q => q.CreatePerson(_personCreationData), Times.Once());
+            }
+
+            [Test]
+            public void ReturnCreatedPerson()
+            {
+                personServiceMock.Setup(q => q.CreatePerson(_personCreationData)).Returns(_createdPerson);
+
+                var result = controller.Create(_personCreationData);
+
+                var okResult = result.Result as OkObjectResult;
+
+                okResult.Value.ShouldBeOfType<Person>();
+                okResult.Value.ShouldBe(_createdPerson);
+            }
+
+            [Test]
+            public void ReturnConflict()
+            {
+                personServiceMock.Setup(q => q.CreatePerson(_personCreationData)).Throws<DuplicateRecordException>();
+                var result = controller.Create(_personCreationData);
+
+                result.Result.ShouldBeOfType<ConflictResult>();
+            }
+        }
+      
         [TestFixture]
         public class DeleteByIdShould : PeopleControllerTests
         {

@@ -10,7 +10,7 @@ namespace NETCoreASPAPI.Services
 
         Person GetPerson(int id);
 
-        int CreatePerson(Person person);
+        Person CreatePerson(Person person);
 
         Person UpdatePerson(int id, Person person);
 

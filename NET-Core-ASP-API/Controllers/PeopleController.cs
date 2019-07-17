@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NETCoreASPAPI.Lib;
 using NETCoreASPAPI.Models;
 using NETCoreASPAPI.Services;
 
@@ -57,6 +58,21 @@ namespace NETCoreASPAPI.Controllers
             catch (KeyNotFoundException)
             {
                 return NotFound();
+            }
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        public ActionResult<Person> Create(Person person)
+        {
+            try
+            {
+                var createdPerson = personService.CreatePerson(person);
+                return Ok(createdPerson);
+            } catch (DuplicateRecordException)
+            {
+                return Conflict();
             }
         }
 
