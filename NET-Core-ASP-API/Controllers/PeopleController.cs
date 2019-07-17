@@ -59,5 +59,13 @@ namespace NETCoreASPAPI.Controllers
                 return NotFound();
             }
         }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<Person> Create(int id, Person person)
+        {
+            return null;
+        }
     }
 }

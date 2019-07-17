@@ -13,12 +13,12 @@ namespace NETCoreASPAPI.Tests.Controllers
     public class PeopleControllerTests
     {
         private PeopleController controller;
-
+        
         private Mock<IPersonService> personServiceMock;
 
-        private static Person _bobPerson = new Person { ID = 1, FirstName = "Bob", Surname = "Roads", Age = 23 };
+        private static Person _person = new Person { ID = 1, FirstName = "Bob", Surname = "Roads", Age = 23 };
 
-        private static IEnumerable<Person> _people = new List<Person> { _bobPerson };
+        private static IEnumerable<Person> _people = new List<Person> { _person };
 
         [SetUp]
         public virtual void SetUp()
@@ -46,7 +46,7 @@ namespace NETCoreASPAPI.Tests.Controllers
             public override void SetUp()
             {
                 base.SetUp();
-                personServiceMock.Setup(q => q.GetPerson(1)).Returns(_bobPerson);
+                personServiceMock.Setup(q => q.GetPerson(1)).Returns(_person);
             }
 
             [Test]
@@ -64,7 +64,7 @@ namespace NETCoreASPAPI.Tests.Controllers
                 var okResult = result.Result as OkObjectResult;
 
                 okResult.Value.ShouldBeOfType<Person>();
-                okResult.Value.ShouldBe(_bobPerson);
+                okResult.Value.ShouldBe(_person);
             }
 
             [Test]
@@ -87,11 +87,10 @@ namespace NETCoreASPAPI.Tests.Controllers
             public override void SetUp()
             {
                 base.SetUp();
-
             }
 
             [Test]
-            public void ReturnsOk()
+            public void ReturnOk()
             {
                 var result = controller.Update(1, _updateData);
 
@@ -126,6 +125,24 @@ namespace NETCoreASPAPI.Tests.Controllers
                 var result = controller.Update(99, _updateData);
 
                 result.Result.ShouldBeOfType<NotFoundResult>();
+            }
+        }
+
+        [TestFixture]
+        public class PostByIdShould : PeopleControllerTests
+        {
+            [SetUp]
+            public override void SetUp()
+            {
+                base.SetUp();
+            }
+
+            [Test]
+            public void ReturnOk()
+            {
+                var result = controller.Create(1, _person);
+
+                result.Result.ShouldBeOfType<OkObjectResult>();
             }
         }
     }
