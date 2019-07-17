@@ -28,7 +28,7 @@ namespace NETCoreASPAPI.Controllers
             return personService.GetPersons();
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Person> Get(int id)
         {
