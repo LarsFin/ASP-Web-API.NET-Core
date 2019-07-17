@@ -23,12 +23,14 @@ namespace NETCoreASPAPI.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IEnumerable<Person> Get()
         {
             return personService.GetPersons();
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Person> Get(int id)
         {
@@ -40,6 +42,14 @@ namespace NETCoreASPAPI.Controllers
             }
 
             return Ok(person);
+        }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<Person> Update(int id, Person person)
+        {
+            return null;
         }
     }
 }
