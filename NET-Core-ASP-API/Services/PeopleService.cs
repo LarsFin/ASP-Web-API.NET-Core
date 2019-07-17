@@ -14,14 +14,16 @@ namespace NETCoreASPAPI.Services
             this.peopleRepository = peopleRepository;
         }
 
-        public int CreatePerson(Person person)
+        public Person CreatePerson(Person person)
         {
-            throw new NotImplementedException();
+            return peopleRepository.CreatePerson(person);
         }
 
         public void DeletePerson(int id)
         {
-            throw new NotImplementedException();
+            GetPerson(id);
+
+            peopleRepository.DeletePerson(id);
         }
 
         public Person GetPerson(int id)
