@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NETCoreASPAPI.Lib;
 using NETCoreASPAPI.Models;
 using NETCoreASPAPI.Services;
 
@@ -65,8 +66,14 @@ namespace NETCoreASPAPI.Controllers
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public ActionResult<Person> Create(Person person)
         {
-            var createdPerson = personService.CreatePerson(person);
-            return Ok(createdPerson);
+            try
+            {
+                var createdPerson = personService.CreatePerson(person);
+                return Ok(createdPerson);
+            } catch (DuplicateRecordException)
+            {
+                return Conflict();
+            }
         }
     }
 }

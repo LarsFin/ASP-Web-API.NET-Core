@@ -29,7 +29,7 @@ I should be able to POST data via /api/people/id
 
 |Entity of Responsibility|Complete?|
 |:----------------------:|:-------:|
-|Controller Logic||
+|Controller Logic|✓|
 |Server Logic||
 
 ## READ
