@@ -65,8 +65,8 @@ namespace NETCoreASPAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Person> Create(Person person)
         {
-            personService.CreatePerson(person);
-            return Ok("temp");
+            var createdPerson = personService.CreatePerson(person);
+            return Ok(createdPerson);
         }
     }
 }
