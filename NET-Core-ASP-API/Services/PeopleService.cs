@@ -1,12 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using NETCoreASPAPI.Models;
+using NETCoreASPAPI.Repositories;
 
 namespace NETCoreASPAPI.Services
 {
     public class PeopleService : IPersonService
     {
-        public Person CreatePerson(Person person)
+        private IPeopleRepository peopleRepository;
+
+        public PeopleService(IPeopleRepository peopleRepository)
+        {
+            this.peopleRepository = peopleRepository;
+        }
+
+        public int CreatePerson(Person person)
         {
             throw new NotImplementedException();
         }
@@ -18,12 +26,12 @@ namespace NETCoreASPAPI.Services
 
         public Person GetPerson(int id)
         {
-            throw new NotImplementedException();
+            return peopleRepository.GetPerson(id);
         }
 
         public IEnumerable<Person> GetPersons()
         {
-            throw new NotImplementedException();
+            return peopleRepository.GetPersons();
         }
 
         public Person UpdatePerson(int id, Person person)

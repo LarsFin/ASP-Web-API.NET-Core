@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NET-Core-ASP-API\NET-Core-ASP-API.csproj" />
