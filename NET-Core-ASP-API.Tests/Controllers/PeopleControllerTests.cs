@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NETCoreASPAPI.Controllers;
+using NETCoreASPAPI.Lib;
 using NETCoreASPAPI.Models;
 using NETCoreASPAPI.Services;
 using NUnit.Framework;
@@ -158,6 +159,15 @@ namespace NETCoreASPAPI.Tests.Controllers
 
                 okResult.Value.ShouldBeOfType<Person>();
                 okResult.Value.ShouldBe(_createdPerson);
+            }
+
+            [Test]
+            public void ReturnConflict()
+            {
+                personServiceMock.Setup(q => q.CreatePerson(_personCreationData)).Throws<DuplicateRecordException>();
+                var result = controller.Create(_personCreationData);
+
+                result.Result.ShouldBeOfType<ConflictResult>();
             }
         }
     }

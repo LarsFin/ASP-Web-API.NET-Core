@@ -62,7 +62,7 @@ namespace NETCoreASPAPI.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public ActionResult<Person> Create(Person person)
         {
             var createdPerson = personService.CreatePerson(person);
