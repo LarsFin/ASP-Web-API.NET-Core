@@ -83,13 +83,6 @@ namespace NETCoreASPAPI.Tests.Controllers
 
             private Person _updatedPerson = new Person { ID = 1, FirstName = "Bob", Surname = "Blyth", Age = 23 };
 
-            [SetUp]
-            public override void SetUp()
-            {
-                base.SetUp();
-
-            }
-
             [Test]
             public void ReturnsOk()
             {
@@ -126,6 +119,35 @@ namespace NETCoreASPAPI.Tests.Controllers
                 var result = controller.Update(99, _updateData);
 
                 result.Result.ShouldBeOfType<NotFoundResult>();
+            }
+        }
+
+        [TestFixture]
+        public class DeleteByIdShould : PeopleControllerTests
+        {
+            [Test]
+            public void ReturnsOk()
+            {
+                var result = controller.Delete(1);
+
+                result.ShouldBeOfType<OkResult>();
+            }
+
+            [Test]
+            public void CallsDeletePerson()
+            {
+                var result = controller.Delete(1);
+
+                personServiceMock.Verify(q => q.DeletePerson(1), Times.Once());
+            }
+
+            [Test]
+            public void ReturnsNotFound()
+            {
+                personServiceMock.Setup(q => q.DeletePerson(99)).Throws<KeyNotFoundException>();
+                var result = controller.Delete(99);
+
+                result.ShouldBeOfType<NotFoundResult>();
             }
         }
     }
