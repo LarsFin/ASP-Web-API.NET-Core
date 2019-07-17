@@ -60,10 +60,10 @@ namespace NETCoreASPAPI.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<Person> Create(int id, Person person)
+        public ActionResult<Person> Create(Person person)
         {
             return Ok("temp");
         }

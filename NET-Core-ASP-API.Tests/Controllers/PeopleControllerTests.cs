@@ -83,12 +83,6 @@ namespace NETCoreASPAPI.Tests.Controllers
 
             private Person _updatedPerson = new Person { ID = 1, FirstName = "Bob", Surname = "Blyth", Age = 23 };
 
-            [SetUp]
-            public override void SetUp()
-            {
-                base.SetUp();
-            }
-
             [Test]
             public void ReturnOk()
             {
@@ -129,20 +123,22 @@ namespace NETCoreASPAPI.Tests.Controllers
         }
 
         [TestFixture]
-        public class PostByIdShould : PeopleControllerTests
+        public class PostShould : PeopleControllerTests
         {
-            [SetUp]
-            public override void SetUp()
-            {
-                base.SetUp();
-            }
-
             [Test]
             public void ReturnOk()
             {
-                var result = controller.Create(1, _person);
+                var result = controller.Create(_person);
 
                 result.Result.ShouldBeOfType<OkObjectResult>();
+            }
+
+            [Test]
+            public void CallCreatePerson()
+            {
+                var result = controller.Create(_person);
+
+                personServiceMock.Verify(q => q.CreatePerson(_person), Times.Once());
             }
         }
     }
