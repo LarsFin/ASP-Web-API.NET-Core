@@ -6,7 +6,7 @@ namespace NETCoreASPAPI.Services
 {
     public class PeopleService : IPersonService
     {
-        public int CreatePerson(Person person)
+        public Person CreatePerson(Person person)
         {
             throw new NotImplementedException();
         }

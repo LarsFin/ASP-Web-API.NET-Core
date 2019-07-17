@@ -125,10 +125,16 @@ namespace NETCoreASPAPI.Tests.Controllers
         [TestFixture]
         public class PostShould : PeopleControllerTests
         {
+            private static string _firstName = "Eve";
+            private static string _surname = "Harper";
+            private static int _age = 22;
+            private Person _personCreationData = new Person { FirstName = _firstName, Surname = _surname, Age = _age };
+            private Person _createdPerson = new Person { ID = 1, FirstName = _firstName, Surname = _surname, Age = _age };
+
             [Test]
             public void ReturnOk()
             {
-                var result = controller.Create(_person);
+                var result = controller.Create(_personCreationData);
 
                 result.Result.ShouldBeOfType<OkObjectResult>();
             }
@@ -136,9 +142,22 @@ namespace NETCoreASPAPI.Tests.Controllers
             [Test]
             public void CallCreatePerson()
             {
-                var result = controller.Create(_person);
+                var result = controller.Create(_personCreationData);
 
-                personServiceMock.Verify(q => q.CreatePerson(_person), Times.Once());
+                personServiceMock.Verify(q => q.CreatePerson(_personCreationData), Times.Once());
+            }
+
+            [Test]
+            public void ReturnCreatedPerson()
+            {
+                personServiceMock.Setup(q => q.CreatePerson(_personCreationData)).Returns(_createdPerson);
+
+                var result = controller.Create(_personCreationData);
+
+                var okResult = result.Result as OkObjectResult;
+
+                okResult.Value.ShouldBeOfType<Person>();
+                okResult.Value.ShouldBe(_createdPerson);
             }
         }
     }
