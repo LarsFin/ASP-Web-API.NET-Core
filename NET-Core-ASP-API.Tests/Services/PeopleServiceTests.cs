@@ -58,5 +58,18 @@ namespace NETCoreASPAPI.Tests.Services
                 Should.Throw<KeyNotFoundException>(() => service.GetPerson(99)).Message.Equals("Could not find Person with ID '99'");
             }
         }
+
+        [TestFixture]
+        public class UpdateShould : PeopleServiceTests
+        {
+            private Person _updateData = new Person { FirstName = "Bob", Surname = "Streets", Age = 23 };
+
+            [Test]
+            public void CallUpdatePerson()
+            {
+                service.UpdatePerson(1, _updateData);
+                peopleRepoMock.Verify(q => q.UpdatePerson(_updateData), Times.Once());
+            }
+        }
     }
 }
