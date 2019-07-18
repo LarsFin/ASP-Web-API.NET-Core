@@ -45,6 +45,12 @@ namespace NETCoreASPAPI.Services
         {
             person.ID = id;
             var updatedPerson = peopleRepository.UpdatePerson(person);
+
+            if (updatedPerson == null)
+            {
+                throw new KeyNotFoundException($"Could not find Person with ID '{id}'");
+            }
+
             return updatedPerson;
         }
     }

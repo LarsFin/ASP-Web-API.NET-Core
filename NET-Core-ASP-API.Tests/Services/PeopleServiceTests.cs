@@ -53,9 +53,9 @@ namespace NETCoreASPAPI.Tests.Services
             }
 
             [Test]
-            public void ThrowsNotFound()
+            public void ThrowKeyNotFoundException()
             {
-                Should.Throw<KeyNotFoundException>(() => service.GetPerson(99)).Message.Equals("Could not find Person with ID '99'");
+                Should.Throw<KeyNotFoundException>(() => service.GetPerson(99)).Message.ShouldBe("Could not find Person with ID '99'");
             }
         }
 
@@ -72,7 +72,10 @@ namespace NETCoreASPAPI.Tests.Services
             [Test]
             public void CallUpdatePerson()
             {
+                peopleRepoMock.Setup(q => q.UpdatePerson(_updateData)).Returns(_updatedPerson);
+
                 service.UpdatePerson(1, _updateData);
+
                 peopleRepoMock.Verify(q => q.UpdatePerson(_updateData), Times.Once());
             }
 
@@ -87,9 +90,9 @@ namespace NETCoreASPAPI.Tests.Services
             }
 
             [Test]
-            public void ThrowNotFound()
+            public void ThrowKeyNotFoundException()
             {
-                Should.Throw<ApplicationException>(() =>
+                Should.Throw<KeyNotFoundException>(() =>
                 {
                     service.UpdatePerson(99, _updateData);
                 }).Message.ShouldBe("Could not find Person with ID '99'");
