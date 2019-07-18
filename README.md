@@ -43,7 +43,7 @@ I should be able to GET all Person data via /api/people
 |Entity of Responsibility|Complete?|
 |:----------------------:|:-------:|
 |Controller Logic|✓|
-|Server Logic||
+|Server Logic|✓|
 
 ```
 As an admin,
@@ -67,7 +67,7 @@ I should be able to PUT data via /api/people/id
 |Entity of Responsibility|Complete?|
 |:----------------------:|:-------:|
 |Controller Logic|✓|
-|Server Logic||
+|Server Logic|✓|
 
 ## DELETE
 
@@ -79,5 +79,5 @@ I should be able to DELETE data via /api/people/id
 
 |Entity of Responsibility|Complete?|
 |:----------------------:|:-------:|
-|Controller Logic||
+|Controller Logic|✓|
 |Server Logic||
