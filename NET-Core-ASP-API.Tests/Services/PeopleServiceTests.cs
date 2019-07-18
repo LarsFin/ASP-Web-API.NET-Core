@@ -103,7 +103,9 @@ namespace NETCoreASPAPI.Tests.Services
             [Test]
             public void CallsDeletePerson()
             {
-                service.DeletePerson(1);
+				peopleRepoMock.Setup(q => q.GetPerson(1)).Returns(_person);
+
+				service.DeletePerson(1);
 
                 peopleRepoMock.Verify(q => q.DeletePerson(1), Times.Once());
             }
