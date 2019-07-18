@@ -53,11 +53,9 @@ namespace NETCoreASPAPI.Tests.Services
             }
 
             [Test]
-            public void ReturnsNull()
+            public void ThrowsNotFound()
             {
-                var result = service.GetPerson(99);
-
-                result.ShouldBeNull();
+                Should.Throw<KeyNotFoundException>(() => service.GetPerson(99)).Message.Equals("Could not find Person with ID '99'");
             }
         }
     }

@@ -71,6 +71,8 @@ namespace NETCoreASPAPI.Tests.Controllers
             [Test]
             public void ReturnsNotFound()
             {
+                personServiceMock.Setup(q => q.GetPerson(99)).Throws<KeyNotFoundException>();
+
                 var result = controller.Get(99);
 
                 result.Result.ShouldBeOfType<NotFoundResult>();

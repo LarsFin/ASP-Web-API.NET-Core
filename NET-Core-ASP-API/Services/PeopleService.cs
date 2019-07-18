@@ -14,7 +14,7 @@ namespace NETCoreASPAPI.Services
             this.peopleRepository = peopleRepository;
         }
 
-        public int CreatePerson(Person person)
+        public Person CreatePerson(Person person)
         {
             throw new NotImplementedException();
         }
@@ -26,7 +26,14 @@ namespace NETCoreASPAPI.Services
 
         public Person GetPerson(int id)
         {
-            return peopleRepository.GetPerson(id);
+            var person = peopleRepository.GetPerson(id);
+
+            if (person == null)
+            {
+                throw new KeyNotFoundException($"Could not find Person with ID '{id}'");
+            }
+
+            return person;
         }
 
         public IEnumerable<Person> GetPersons()

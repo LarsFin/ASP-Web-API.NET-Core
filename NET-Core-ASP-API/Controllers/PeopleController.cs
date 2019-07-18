@@ -35,14 +35,15 @@ namespace NETCoreASPAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Person> Get(int id)
         {
-            var person = personService.GetPerson(id);
-
-            if (person == null)
+            try
+            {
+                var person = personService.GetPerson(id);
+                return Ok(person);
+            }
+            catch (KeyNotFoundException)
             {
                 return NotFound();
             }
-
-            return Ok(person);
         }
 
         [HttpPut("{id}")]
