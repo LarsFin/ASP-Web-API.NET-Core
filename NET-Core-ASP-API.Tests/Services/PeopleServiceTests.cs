@@ -91,7 +91,7 @@ namespace NETCoreASPAPI.Tests.Services
             }
 
             [Test]
-            public void ReturnConflict()
+            public void ThrowDuplicateRecordException()
             {
                 peopleRepoMock.Setup(q => q.CreatePerson(_personCreationData)).Throws<DuplicateRecordException>();
 
