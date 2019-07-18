@@ -85,6 +85,15 @@ namespace NETCoreASPAPI.Tests.Services
 
                 result.ShouldBe(_updatedPerson);
             }
+
+            [Test]
+            public void ThrowNotFound()
+            {
+                Should.Throw<ApplicationException>(() =>
+                {
+                    service.UpdatePerson(99, _updateData);
+                }).Message.ShouldBe("Could not find Person with ID '99'");
+            }
         }
     }
 }
