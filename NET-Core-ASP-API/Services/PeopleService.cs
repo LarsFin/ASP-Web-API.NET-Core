@@ -44,8 +44,8 @@ namespace NETCoreASPAPI.Services
         public Person UpdatePerson(int id, Person person)
         {
             person.ID = id;
-            peopleRepository.UpdatePerson(person);
-            return null;
+            var updatedPerson = peopleRepository.UpdatePerson(person);
+            return updatedPerson;
         }
     }
 }
