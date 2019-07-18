@@ -43,7 +43,9 @@ namespace NETCoreASPAPI.Services
 
         public Person UpdatePerson(int id, Person person)
         {
-            throw new NotImplementedException();
+            person.ID = id;
+            peopleRepository.UpdatePerson(person);
+            return null;
         }
     }
 }
