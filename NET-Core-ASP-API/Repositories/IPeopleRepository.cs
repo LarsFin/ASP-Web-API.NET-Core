@@ -10,7 +10,7 @@ namespace NETCoreASPAPI.Repositories
 
         Person GetPerson(int id);
 
-        int CreatePerson(Person person);
+        Person CreatePerson(Person person);
 
         Person UpdatePerson(Person person);
 
