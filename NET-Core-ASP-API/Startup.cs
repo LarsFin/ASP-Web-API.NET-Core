@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using NETCoreASPAPI.Repositories;
 using NETCoreASPAPI.Services;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -27,9 +28,15 @@ namespace NET_Core_ASP_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IPeopleRepository, PeopleRepository>();
+
             services.AddSingleton<IPersonService, PeopleService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddEntityFrameworkNpgsql()
+               .AddDbContext<PeopleRepository>()
+               .BuildServiceProvider();
 
             services.AddSwaggerGen(c =>
             {
