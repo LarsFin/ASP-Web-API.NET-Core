@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -28,15 +29,14 @@ namespace NET_Core_ASP_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IPeopleRepository, PeopleRepository>();
+            services.AddDbContext<PeopleRepository>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("PostgresConnection")));
 
-            services.AddSingleton<IPersonService, PeopleService>();
+            services.AddScoped<IPeopleRepository, PeopleRepository>();
+
+            services.AddScoped<IPersonService, PeopleService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-            services.AddEntityFrameworkNpgsql()
-               .AddDbContext<PeopleRepository>()
-               .BuildServiceProvider();
 
             services.AddSwaggerGen(c =>
             {
