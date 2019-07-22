@@ -81,3 +81,12 @@ I should be able to DELETE data via /api/people/id
 |:----------------------:|:-------:|
 |Controller Logic|✓|
 |Server Logic||
+
+---
+
+## Improvements :: Docker
+
+- Remove Project from container once not needed
+- Don't source control Migrations directory
+- Https and Security
+- Look into AWS

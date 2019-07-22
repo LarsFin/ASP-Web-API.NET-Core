@@ -8,12 +8,14 @@ services:
     networks:
       - app-network
     ports:
-      - "5005:80"
+      - "5000:80"
     build:
       context: .
       dockerfile: NET-Core-ASP-API/Dockerfile
     volumes:
       - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+    depends_on:
+      - db
 
   db:
     image: postgres
