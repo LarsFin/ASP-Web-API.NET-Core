@@ -63,29 +63,34 @@ namespace NETCoreASPAPI.Tests.Services
         [TestFixture]
         public class UpdateShould : PeopleServiceTests
         {
+            private static int _id = 1;
             private static string _firstName = "Bob";
             private static string _updateSurname = "Streets";
             private static int _age = 23;
 
             private Person _updateData = new Person { FirstName = _firstName, Surname = _updateSurname, Age = _age };
-            private Person _updatedPerson = new Person { ID = 1, FirstName = _firstName, Surname = _updateSurname, Age = _age };
+            private Person _updatedPerson = new Person { ID = _id, FirstName = _firstName, Surname = _updateSurname, Age = _age };
+
+            [SetUp]
+            public override void SetUp()
+            {
+                base.SetUp();
+                peopleRepoMock.Setup(q => q.GetPerson(_id)).Returns(_person);
+                peopleRepoMock.Setup(q => q.UpdatePerson(_updatedPerson)).Returns(_updatedPerson);
+            }
 
             [Test]
             public void CallUpdatePerson()
             {
-                peopleRepoMock.Setup(q => q.UpdatePerson(_updateData)).Returns(_updatedPerson);
+                service.UpdatePerson(_id, _updateData);
 
-                service.UpdatePerson(1, _updateData);
-
-                peopleRepoMock.Verify(q => q.UpdatePerson(_updateData), Times.Once());
+                peopleRepoMock.Verify(q => q.UpdatePerson(_updatedPerson), Times.Once());
             }
 
             [Test]
             public void ReturnUpdatedPerson()
             {
-                peopleRepoMock.Setup(q => q.UpdatePerson(_updateData)).Returns(_updatedPerson);
-
-                var result = service.UpdatePerson(1, _updateData);
+                var result = service.UpdatePerson(_id, _updateData);
 
                 result.ShouldBe(_updatedPerson);
             }

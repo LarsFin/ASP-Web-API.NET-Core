@@ -33,12 +33,17 @@ namespace NETCoreASPAPI.Repositories
 
         public Person UpdatePerson(Person person)
         {
-            throw new NotImplementedException();
+            People.Update(person);
+            SaveChanges();
+            return person;
         }
 
         public void DeletePerson(int id)
         {
-            throw new NotImplementedException();
+            var person = GetPerson(id);
+
+            People.Remove(person);
+            SaveChanges();
         }
     }
 }
