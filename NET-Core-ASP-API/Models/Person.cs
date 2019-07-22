@@ -10,23 +10,16 @@ namespace NETCoreASPAPI.Models
 
         public override bool Equals(object obj)
         {
-            if (obj.Equals(this))
+            if (!(obj is Person))
             {
-                return true;
+                return false;
             }
-            else
-            {
-                if (!(obj is Person))
-                {
-                    return false;
-                }
 
-                Person comparedPerson = obj as Person;
-                return ID == comparedPerson.ID &&
-                    Age == comparedPerson.Age &&
-                    Equals(FirstName, comparedPerson.FirstName) &&
-                    Equals(Surname, comparedPerson.Surname);
-            }
+            Person comparedPerson = obj as Person;
+            return ID == comparedPerson.ID &&
+                Age == comparedPerson.Age &&
+                Equals(FirstName, comparedPerson.FirstName) &&
+                Equals(Surname, comparedPerson.Surname);
         }
     }
 }
