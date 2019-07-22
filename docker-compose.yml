@@ -1,0 +1,32 @@
+﻿version: '3.4'
+
+services:
+  net-core-asp-api:
+    image: ${DOCKER_REGISTRY-}netcoreaspapi
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    networks:
+      - app-network
+    ports:
+      - "5005:80"
+    build:
+      context: .
+      dockerfile: NET-Core-ASP-API/Dockerfile
+    volumes:
+      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+
+  db:
+    image: postgres
+    networks:
+      - app-network
+    ports:
+      - "5432"
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    restart: always
+    environment:
+      POSTGRES_DB: "people-base"
+      POSTGRES_PASSWORD: "admin123"
+
+networks:
+  app-network:
