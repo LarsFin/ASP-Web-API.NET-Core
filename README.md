@@ -91,7 +91,7 @@ I should be able to DELETE data via /api/people/id
 
 ## Improvements to be done
 
-- ~~Define custom user secrets for Docker~~
+- ~~Define custom user secrets for Docker~~ ==> Use Vault
 - ~~Remove Project from container once not needed~~
 - ~~Don't source control Migrations directory~~
 - API Tests

@@ -5,7 +5,7 @@ services:
     image: ${DOCKER_REGISTRY-}netcoreaspapi
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      CONNECTION_STRING: "Host=db;Database=people-base;Username=postgres;Password=admin123"
+      CONNECTION_STRING: ${CONNECTION_STRING}
     networks:
       - app-network
     ports:
