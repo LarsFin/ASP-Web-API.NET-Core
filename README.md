@@ -93,7 +93,7 @@ I should be able to DELETE data via /api/people/id
 
 - Define custom user secrets for Docker
 - ~~Remove Project from container once not needed~~
-- Don't source control Migrations directory
+- ~~Don't source control Migrations directory~~
 - API Tests
 - Https and Security
 - Look into AWS

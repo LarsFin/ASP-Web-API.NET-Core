@@ -3,6 +3,8 @@
 set -e
 run_cmd="dotnet /app/bin/Debug/netcoreapp2.2/NET-Core-ASP-API.dll"
 
+dotnet ef migrations add InitialCreate
+
 until dotnet ef database update; do
 >&2 echo "SQL Server is starting up"
 sleep 1
