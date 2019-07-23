@@ -10,6 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NET-Core-ASP-API.Tests", "NET-Core-ASP-API.Tests\NET-Core-ASP-API.Tests.csproj", "{6B039F65-48D4-4E29-BC30-80E6D3F6CEFA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Terraform", "Terraform", "{77712575-D7DE-400F-81B7-E63EF9B28F45}"
+	ProjectSection(SolutionItems) = preProject
+		EC2.tf = EC2.tf
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

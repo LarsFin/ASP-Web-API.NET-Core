@@ -406,3 +406,7 @@ ASALocalRun/
 
 # Ignore Migration files
 */Migrations/*
+
+# Ignore Terraform files
+*.tfvars
+*.tfstate
