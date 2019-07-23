@@ -27,8 +27,8 @@ services:
       - ./data/postgres:/var/lib/postgresql/data
     restart: always
     environment:
-      POSTGRES_DB: "people-base"
-      POSTGRES_PASSWORD: "admin123"
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 
 networks:
   app-network:

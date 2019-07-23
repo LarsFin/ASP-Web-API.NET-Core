@@ -30,7 +30,8 @@ I should be able to POST data via /api/people/id
 |Entity of Responsibility|Complete?|
 |:----------------------:|:-------:|
 |Controller Logic|✓|
-|Server Logic||
+|Server Logic|✓|
+|Repository Interface|✓|
 
 ## READ
 
@@ -44,6 +45,7 @@ I should be able to GET all Person data via /api/people
 |:----------------------:|:-------:|
 |Controller Logic|✓|
 |Server Logic|✓|
+|Repository Interface|✓|
 
 ```
 As an admin,
@@ -54,7 +56,8 @@ I should be able to GET Person data via /api/people/id
 |Entity of Responsibility|Complete?|
 |:----------------------:|:-------:|
 |Controller Logic|✓|
-|Server Logic||
+|Server Logic|✓|
+|Repository Interface|✓|
 
 ## UPDATE
 
@@ -68,6 +71,7 @@ I should be able to PUT data via /api/people/id
 |:----------------------:|:-------:|
 |Controller Logic|✓|
 |Server Logic|✓|
+|Repository Interface|✓|
 
 ## DELETE
 
@@ -80,13 +84,16 @@ I should be able to DELETE data via /api/people/id
 |Entity of Responsibility|Complete?|
 |:----------------------:|:-------:|
 |Controller Logic|✓|
-|Server Logic||
+|Server Logic|✓|
+|Repository Interface|✓|
 
 ---
 
-## Improvements :: Docker
+## Improvements to be done
 
+- Define custom user secrets for Docker
 - Remove Project from container once not needed
 - Don't source control Migrations directory
+- API Tests
 - Https and Security
 - Look into AWS
