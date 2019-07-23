@@ -29,8 +29,15 @@ namespace NET_Core_ASP_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+
+            if (connectionString == null)
+            {
+                connectionString = Configuration.GetConnectionString("PostgresConnection");
+            }
+
             services.AddDbContext<PeopleRepository>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("PostgresConnection")));
+                options.UseNpgsql(connectionString));
 
             services.AddScoped<IPeopleRepository, PeopleRepository>();
 

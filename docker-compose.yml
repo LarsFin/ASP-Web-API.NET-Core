@@ -5,6 +5,7 @@ services:
     image: ${DOCKER_REGISTRY-}netcoreaspapi
     environment:
       ASPNETCORE_ENVIRONMENT: Development
+      CONNECTION_STRING: "Host=db;Database=people-base;Username=postgres;Password=admin123"
     networks:
       - app-network
     ports:
@@ -12,8 +13,6 @@ services:
     build:
       context: .
       dockerfile: NET-Core-ASP-API/Dockerfile
-    volumes:
-      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
     depends_on:
       - db
 
