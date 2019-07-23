@@ -9,4 +9,6 @@ sleep 1
 done
 
 >&2 echo "SQL Server is up - executing command"
+shopt -s extglob
+rm -rf !(bin)
 exec $run_cmd
